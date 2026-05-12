@@ -1,74 +1,248 @@
-import { motion } from 'framer-motion';
-import { Shield, HeartHandshake, Users, ClipboardList } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import icAtendimento from '../../icones/Atendimento24.png';
+import icTranslado from '../../icones/Translado.png';
+import icOrientacao from '../../icones/Orientacao.png';
+import icPreparacao from '../../icones/preparacao.png';
+import icOrnamentacao from '../../icones/CremacaoPet.png';
+import icCoroa from '../../icones/Coroa.png';
+import icCremacao from '../../icones/Urna.png';
+import icSepultura from '../../icones/Sepultura.png';
+import cardCremacao from '../../Card Services/cremacao.jpeg';
 
 const services = [
-  {
-    icon: <Shield size={24} />,
-    title: 'Segurança & Confiança',
-    description: 'Nossa equipe atua com total transparência e seriedade, garantindo que tudo seja feito com a máxima segurança para sua família.',
-  },
-  {
-    icon: <HeartHandshake size={24} />,
-    title: 'Acolhimento Humano',
-    description: 'Cada atendimento é único. Nossa prioridade é oferecer um ombro amigo e todo o suporte emocional necessário.',
-  },
-  {
-    icon: <ClipboardList size={24} />,
-    title: 'Cuidado Completo',
-    description: 'Resolvemos toda a burocracia e detalhes práticos, para que você não precise se preocupar com nada além de estar com sua família.',
-  },
-  {
-    icon: <Users size={24} />,
-    title: 'Equipe Especializada',
-    description: 'Profissionais experientes, discretos e altamente preparados para atuar com respeito em todas as etapas.',
-  }
+  { icon: icAtendimento,  title: 'Atendimento\n24H' },
+  { icon: icTranslado,    title: 'Traslado' },
+  { icon: icOrientacao,   title: 'Orientação' },
+  { icon: icPreparacao,   title: 'Preparação\n(Tanatopraxia)' },
+  { icon: icOrnamentacao, title: 'Cremação\nPet', iconSize: '62px' },
+  { icon: icCoroa,        title: 'Coroas de\nFlores', iconSize: '62px' },
+  { icon: icCremacao,     title: 'Cremação', card: cardCremacao },
+  { icon: icSepultura,    title: 'Sepultamento' },
 ];
 
 export default function Services() {
-  return (
-    <section id="services" className="bg-bg-main section-padding relative">
-      <div className="max-w-theme px-6 lg:px-12 w-full">
-        {/* Section Header */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center max-w-2xl mx-auto mb-20"
-        >
-          <span className="text-gold tracking-[0.2em] text-xs font-sans uppercase mb-4 block">Nossos Diferenciais</span>
-          <h2 className="text-text-warm font-serif text-4xl lg:text-5xl mb-6">
-            Compromisso com o seu <span className="text-gold italic">bem-estar.</span>
-          </h2>
-          <p className="text-text-secondary font-sans text-lg font-light">
-            Entendemos a delicadeza do momento. Por isso, nossos pilares são baseados no respeito e na dedicação integral a você.
-          </p>
-        </motion.div>
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [activeCard, setActiveCard] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
 
-        {/* Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              className="glass-card p-8 group hover:-translate-y-2 transition-transform duration-500"
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          section.querySelectorAll<HTMLElement>('[data-item]').forEach((el, i) => {
+            setTimeout(() => {
+              el.style.opacity = '1';
+              el.style.transform = 'translateY(0)';
+            }, i * 60);
+          });
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    obs.observe(section);
+    return () => obs.disconnect();
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = activeCard ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [activeCard]);
+
+  const activeService = services.find(s => s.title === activeCard);
+
+  return (
+    <>
+      <section
+        id="servicos"
+        ref={sectionRef}
+        className="relative py-16 lg:py-16 overflow-hidden"
+        style={{ background: '#080C14' }}
+      >
+        <div className="max-w-5xl mx-auto px-6 lg:px-10">
+
+          {/* Header */}
+          <div className="text-center mb-5">
+            <p
+              className="mb-1"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: 300,
+                fontSize: '0.7rem',
+                letterSpacing: '0.3em',
+                color: '#C89B53',
+              }}
             >
-              <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20 mb-8 text-gold group-hover:bg-gold group-hover:text-[#111] transition-colors duration-500">
-                {service.icon}
+              NOSSOS SERVIÇOS
+            </p>
+            <h2
+              className="mb-1"
+              style={{
+                fontFamily: 'Cormorant Garamond, serif',
+                fontWeight: 300,
+                fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+                lineHeight: '1.1',
+                color: '#F5F1EA',
+              }}
+            >
+              Cuidado completo
+              <br />
+              <em style={{ fontStyle: 'italic', fontWeight: 300, color: '#C89B53' }}>em cada detalhe.</em>
+            </h2>
+            <p
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: 300,
+                fontSize: '0.9rem',
+                lineHeight: '1.75',
+                color: '#B7B7B7',
+                maxWidth: '460px',
+                margin: '0 auto',
+              }}
+            >
+              Oferecemos um serviço completo e humanizado, do primeiro contato ao acompanhamento pós-cerimônia.
+            </p>
+          </div>
+
+          {/* Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-px" style={{ background: 'rgba(200,155,83,0.08)' }}>
+            {services.map((service) => (
+              <div
+                key={service.title}
+                data-item
+                className="group flex flex-col items-center text-center py-8 px-14"
+                style={{
+                  background: '#080C14',
+                  opacity: 0,
+                  transform: 'translateY(16px)',
+                  transition: 'opacity 0.5s ease, transform 0.5s ease, background 0.3s ease',
+                  cursor: service.card ? 'pointer' : 'default',
+                }}
+                onClick={() => service.card && setActiveCard(service.title)}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.background = 'rgba(200,155,83,0.05)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.background = '#080C14';
+                }}
+              >
+                {/* Icon container */}
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110"
+                  style={{
+                    border: `1px solid ${service.card ? 'rgba(200,155,83,0.55)' : 'rgba(200,155,83,0.3)'}`,
+                    background: 'rgba(200,155,83,0.05)',
+                  }}
+                >
+                  <img
+                    src={service.icon}
+                    alt=""
+                    style={{ width: service.iconSize ?? '45px', height: service.iconSize ?? '45px', objectFit: 'contain', filter: 'brightness(0) saturate(100%) invert(72%) sepia(38%) saturate(500%) hue-rotate(5deg) brightness(95%)' }}
+                  />
+                </div>
+
+                {/* Label */}
+                <p
+                  style={{
+                    fontFamily: 'Inter, sans-serif',
+                    fontWeight: 500,
+                    fontSize: '0.65rem',
+                    letterSpacing: '0.15em',
+                    color: '#F5F1EA',
+                    lineHeight: 1.5,
+                    whiteSpace: 'pre-line',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {service.title}
+                </p>
+
+                {/* "Ver mais" hint for clickable cards */}
+                {service.card && (
+                  <p style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.6rem', color: '#C89B53', marginTop: '6px', letterSpacing: '0.1em', opacity: 0.7 }}>
+                    VER MAIS
+                  </p>
+                )}
               </div>
-              <h3 className="text-text-warm font-serif text-2xl mb-4 group-hover:text-gold transition-colors duration-300">
-                {service.title}
-              </h3>
-              <p className="text-text-secondary font-sans text-sm font-light leading-relaxed">
-                {service.description}
-              </p>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Modal */}
+      {activeCard && activeService?.card && (
+        <>
+          {/* Botões fixos — sempre visíveis */}
+          <div
+            className="fixed top-4 right-4 z-[60] flex items-center gap-2"
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setZoom(z => Math.max(0.5, +(z - 0.25).toFixed(2)))}
+              title="Diminuir"
+              style={{
+                width: '36px', height: '36px', borderRadius: '50%',
+                background: 'rgba(0,0,0,0.7)', border: '1px solid rgba(255,255,255,0.25)',
+                color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </button>
+            <button
+              onClick={() => setZoom(z => Math.min(3, +(z + 0.25).toFixed(2)))}
+              title="Aumentar"
+              style={{
+                width: '36px', height: '36px', borderRadius: '50%',
+                background: 'rgba(0,0,0,0.7)', border: '1px solid rgba(255,255,255,0.25)',
+                color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </button>
+            <button
+              onClick={() => { setActiveCard(null); setZoom(1); }}
+              style={{
+                width: '36px', height: '36px', borderRadius: '50%',
+                background: 'rgba(0,0,0,0.7)', border: '1px solid rgba(255,255,255,0.25)',
+                color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '1rem',
+              }}
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Overlay scrollável */}
+          <div
+            className="fixed inset-0 z-50 overflow-auto"
+            style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(6px)' }}
+            onClick={() => { setActiveCard(null); setZoom(1); }}
+          >
+            <div
+              className="flex justify-center items-start min-h-full p-16"
+              onClick={e => e.stopPropagation()}
+            >
+              <img
+                src={activeService.card}
+                alt={activeCard}
+                style={{
+                  display: 'block',
+                  borderRadius: '8px',
+                  width: zoom <= 1 ? `min(${zoom * 700}px, 90vw)` : `${zoom * 700}px`,
+                  height: 'auto',
+                  transition: 'width 0.2s ease',
+                }}
+              />
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }

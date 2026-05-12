@@ -1,4 +1,5 @@
 import { Phone } from 'lucide-react';
+import pombo from '../../icones/pombo.png';
 
 export default function Footer() {
   const navLinks = [
@@ -22,12 +23,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-5">
-              <svg width="32" height="32" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 4C19 4 12 11 12 18C12 22.4183 15.134 26 19 26C22.866 26 26 22.4183 26 18C26 11 19 4 19 4Z" stroke="#C89B53" strokeWidth="0.8" fill="none" strokeOpacity="0.7"/>
-                <path d="M19 26V34" stroke="#C89B53" strokeWidth="0.8" strokeLinecap="round" strokeOpacity="0.7"/>
-                <path d="M14 30H24" stroke="#C89B53" strokeWidth="0.8" strokeLinecap="round" strokeOpacity="0.7"/>
-                <circle cx="19" cy="18" r="3" stroke="#C89B53" strokeWidth="0.6" fill="none" strokeOpacity="0.7"/>
-              </svg>
+              <img src={pombo} alt="" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
               <div className="flex flex-col">
                 <span
                   style={{
@@ -50,7 +46,7 @@ export default function Footer() {
                     opacity: 0.8,
                   }}
                 >
-                  CUIDADO QUE ACOLHE
+                  ASSISTÊNCIA FUNERAL
                 </span>
               </div>
             </div>

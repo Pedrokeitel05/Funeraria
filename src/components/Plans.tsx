@@ -74,7 +74,7 @@ export default function Plans() {
       id="planos"
       ref={sectionRef}
       className="relative py-28 lg:py-40 overflow-hidden"
-      style={{ background: '#05070B' }}
+      style={{ background: '#080C14' }}
     >
       {/* Ambient glow */}
       <div
@@ -259,7 +259,7 @@ export default function Plans() {
                 }}
               >
                 <Phone size={13} strokeWidth={1.5} />
-                Falar com um especialista
+                Falar com um consultor
               </a>
             </div>
           ))}
