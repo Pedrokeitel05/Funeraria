@@ -1,186 +1,72 @@
-import { useEffect, useRef } from 'react';
-import { Star, Shield, FileText, Truck, Flower2, HeartHandshake } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Shield, HeartHandshake, Users, ClipboardList } from 'lucide-react';
 
 const services = [
   {
-    icon: HeartHandshake,
-    title: 'Atendimento Humanizado',
-    desc: 'Nossa equipe especializada oferece suporte emocional e prático em cada etapa, com presença e cuidado genuíno.',
+    icon: <Shield size={24} />,
+    title: 'Segurança & Confiança',
+    description: 'Nossa equipe atua com total transparência e seriedade, garantindo que tudo seja feito com a máxima segurança para sua família.',
   },
   {
-    icon: FileText,
-    title: 'Assessoria Documental',
-    desc: 'Cuidamos de toda a documentação e processos burocráticos com agilidade e transparência, para você não se preocupar.',
+    icon: <HeartHandshake size={24} />,
+    title: 'Acolhimento Humano',
+    description: 'Cada atendimento é único. Nossa prioridade é oferecer um ombro amigo e todo o suporte emocional necessário.',
   },
   {
-    icon: Flower2,
-    title: 'Cerimônias Personalizadas',
-    desc: 'Organizamos cerimônias que honram a história e os valores de cada pessoa, com elegância e sensibilidade.',
+    icon: <ClipboardList size={24} />,
+    title: 'Cuidado Completo',
+    description: 'Resolvemos toda a burocracia e detalhes práticos, para que você não precise se preocupar com nada além de estar com sua família.',
   },
   {
-    icon: Truck,
-    title: 'Traslado e Logística',
-    desc: 'Serviço completo de traslado local, intermunicipal e interestadual com todo o respeito e cuidado necessários.',
-  },
-  {
-    icon: Shield,
-    title: 'Planos de Previdência',
-    desc: 'Planejamento preventivo para garantir tranquilidade à sua família no futuro, com condições especiais e personalizadas.',
-  },
-  {
-    icon: Star,
-    title: 'Suporte Pós-Cerimônia',
-    desc: 'Continuamos presentes após a cerimônia, oferecendo apoio e orientação para a família nos dias seguintes.',
-  },
+    icon: <Users size={24} />,
+    title: 'Equipe Especializada',
+    description: 'Profissionais experientes, discretos e altamente preparados para atuar com respeito em todas as etapas.',
+  }
 ];
 
 export default function Services() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          section.querySelectorAll<HTMLElement>('[data-card]').forEach((el, i) => {
-            setTimeout(() => {
-              el.style.opacity = '1';
-              el.style.transform = 'translateY(0)';
-            }, i * 100);
-          });
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    obs.observe(section);
-    return () => obs.disconnect();
-  }, []);
-
   return (
-    <section
-      id="servicos"
-      ref={sectionRef}
-      className="relative py-28 lg:py-40 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #05070B 0%, #080C14 50%, #05070B 100%)' }}
-    >
-      {/* Background accent */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(200,155,83,0.03) 0%, transparent 60%)' }}
-      />
-
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Header */}
-        <div className="max-w-xl mb-16 lg:mb-24">
-          <p
-            className="mb-5"
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 300,
-              fontSize: '0.7rem',
-              letterSpacing: '0.3em',
-              color: '#C89B53',
-            }}
-          >
-            NOSSOS SERVIÇOS
-          </p>
-          <h2
-            className="mb-6"
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontWeight: 300,
-              fontSize: 'clamp(2.2rem, 4.5vw, 3.6rem)',
-              lineHeight: '1.1',
-              color: '#F5F1EA',
-            }}
-          >
-            Cuidado completo
-            <br />
-            <em style={{ fontStyle: 'italic', color: '#C89B53' }}>em cada detalhe.</em>
+    <section id="services" className="bg-bg-main section-padding relative">
+      <div className="max-w-theme px-6 lg:px-12 w-full">
+        {/* Section Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="text-center max-w-2xl mx-auto mb-20"
+        >
+          <span className="text-gold tracking-[0.2em] text-xs font-sans uppercase mb-4 block">Nossos Diferenciais</span>
+          <h2 className="text-text-warm font-serif text-4xl lg:text-5xl mb-6">
+            Compromisso com o seu <span className="text-gold italic">bem-estar.</span>
           </h2>
-          <p
-            style={{
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 300,
-              fontSize: '0.95rem',
-              lineHeight: '1.8',
-              color: '#B7B7B7',
-            }}
-          >
-            Oferecemos um serviço completo e humanizado, do primeiro contato ao acompanhamento pós-cerimônia.
+          <p className="text-text-secondary font-sans text-lg font-light">
+            Entendemos a delicadeza do momento. Por isso, nossos pilares são baseados no respeito e na dedicação integral a você.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px" style={{ background: 'rgba(200,155,83,0.06)' }}>
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <div
-                key={service.title}
-                data-card
-                className="group p-10 transition-all duration-500 cursor-default"
-                style={{
-                  background: '#05070B',
-                  opacity: 0,
-                  transform: 'translateY(20px)',
-                  transition: 'opacity 0.7s ease, transform 0.7s ease, background 0.4s ease',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(200,155,83,0.04)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = '#05070B';
-                }}
-              >
-                {/* Icon */}
-                <div
-                  className="w-12 h-12 flex items-center justify-center mb-7 transition-all duration-500 group-hover:scale-110"
-                  style={{
-                    border: '1px solid rgba(200,155,83,0.25)',
-                    background: 'rgba(200,155,83,0.04)',
-                  }}
-                >
-                  <Icon size={20} strokeWidth={1} style={{ color: '#C89B53' }} />
-                </div>
-
-                {/* Title */}
-                <h3
-                  className="mb-3"
-                  style={{
-                    fontFamily: 'Cormorant Garamond, serif',
-                    fontWeight: 400,
-                    fontSize: '1.3rem',
-                    lineHeight: '1.25',
-                    color: '#F5F1EA',
-                  }}
-                >
-                  {service.title}
-                </h3>
-
-                {/* Divider */}
-                <div
-                  className="mb-5 w-8 h-px"
-                  style={{ background: 'rgba(200,155,83,0.4)' }}
-                />
-
-                {/* Desc */}
-                <p
-                  style={{
-                    fontFamily: 'Inter, sans-serif',
-                    fontWeight: 300,
-                    fontSize: '0.83rem',
-                    lineHeight: '1.75',
-                    color: '#B7B7B7',
-                  }}
-                >
-                  {service.desc}
-                </p>
+        {/* Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="glass-card p-8 group hover:-translate-y-2 transition-transform duration-500"
+            >
+              <div className="w-14 h-14 rounded-full bg-gold/10 flex items-center justify-center border border-gold/20 mb-8 text-gold group-hover:bg-gold group-hover:text-[#111] transition-colors duration-500">
+                {service.icon}
               </div>
-            );
-          })}
+              <h3 className="text-text-warm font-serif text-2xl mb-4 group-hover:text-gold transition-colors duration-300">
+                {service.title}
+              </h3>
+              <p className="text-text-secondary font-sans text-sm font-light leading-relaxed">
+                {service.description}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

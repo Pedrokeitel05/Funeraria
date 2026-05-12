@@ -1,305 +1,113 @@
-import { useEffect, useRef } from 'react';
-import { Phone, Calendar } from 'lucide-react';
-
-function useIntersection(ref: React.RefObject<Element>, options?: IntersectionObserverInit) {
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        el.querySelectorAll<HTMLElement>('[data-animate]').forEach((child, i) => {
-          setTimeout(() => {
-            child.style.opacity = '1';
-            child.style.transform = 'translateY(0)';
-          }, i * 120);
-        });
-        obs.disconnect();
-      }
-    }, options);
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [ref, options]);
-}
+import { motion } from 'framer-motion';
+import { Phone, ArrowRight } from 'lucide-react';
 
 export default function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  useIntersection(ref, { threshold: 0.1 });
-
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #05070B 0%, #080C14 50%, #05070B 100%)' }}
+      className="relative min-h-screen overflow-hidden bg-bg-main"
     >
-      {/* Background decorative circles */}
-      <div
-        className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(200,155,83,0.03) 0%, transparent 70%)',
-          transform: 'translate(-50%, -50%)',
-        }}
-      />
-      <div
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(200,155,83,0.025) 0%, transparent 70%)',
-        }}
-      />
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.pexels.com/photos/8942991/pexels-photo-8942991.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt=""
+          className="absolute right-0 top-0 h-full w-full lg:w-[58%] object-cover opacity-40"
+        />
 
-      {/* Thin horizontal gold line */}
-      <div
-        className="absolute top-1/2 left-0 right-0 h-px pointer-events-none"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(200,155,83,0.06), transparent)' }}
-      />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/70" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 w-full pt-32 pb-20 lg:pt-40 lg:pb-24">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-          {/* Left */}
-          <div ref={ref} className="flex flex-col">
-            {/* Badge */}
-            <div
-              data-animate
-              className="inline-flex items-center gap-3 self-start mb-10"
-              style={{
-                opacity: 0,
-                transform: 'translateY(20px)',
-                transition: 'opacity 0.8s ease, transform 0.8s ease',
-              }}
-            >
-              <div
-                className="px-5 py-2 border flex items-center gap-3"
-                style={{ borderColor: 'rgba(200,155,83,0.25)', background: 'rgba(200,155,83,0.04)' }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full bg-[#C89B53] animate-pulse"
-                />
-                <span
-                  style={{
-                    fontFamily: 'Inter, sans-serif',
-                    fontWeight: 300,
-                    fontSize: '0.7rem',
-                    letterSpacing: '0.22em',
-                    color: '#C89B53',
-                  }}
-                >
-                  ATENDIMENTO IMEDIATO &nbsp;•&nbsp; 24 HORAS &nbsp;•&nbsp; SEM BUROCRACIA
-                </span>
-              </div>
-            </div>
+        {/* Cinematic gradients */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#05070B] via-[#05070Bee] to-transparent" />
 
-            {/* Headline */}
-            <h1
-              data-animate
-              className="leading-none mb-8"
-              style={{
-                fontFamily: 'Cormorant Garamond, serif',
-                fontWeight: 300,
-                fontSize: 'clamp(2.8rem, 5.5vw, 4.5rem)',
-                lineHeight: '1.08',
-                color: '#F5F1EA',
-                opacity: 0,
-                transform: 'translateY(20px)',
-                transition: 'opacity 0.8s ease, transform 0.8s ease',
-              }}
-            >
-              Estamos aqui para cuidar de tudo, com{' '}
-              <em style={{ fontStyle: 'italic', color: '#C89B53' }}>respeito</em>
-              {' '}e{' '}
-              <em style={{ fontStyle: 'italic', color: '#C89B53' }}>tranquilidade.</em>
-            </h1>
-
-            {/* Gold ornament */}
-            <div
-              data-animate
-              className="flex items-center gap-4 mb-8"
-              style={{
-                opacity: 0,
-                transform: 'translateY(20px)',
-                transition: 'opacity 0.8s ease, transform 0.8s ease',
-              }}
-            >
-              <div className="h-px w-12" style={{ background: 'rgba(200,155,83,0.4)' }} />
-              <svg width="24" height="10" viewBox="0 0 24 10" fill="none">
-                <path d="M0 5H8M16 5H24M12 0V10M9 2L12 5L15 2M9 8L12 5L15 8" stroke="#C89B53" strokeWidth="0.8" strokeOpacity="0.7"/>
-              </svg>
-              <div className="h-px w-12" style={{ background: 'rgba(200,155,83,0.4)' }} />
-            </div>
-
-            {/* Subtitle */}
-            <p
-              data-animate
-              className="mb-10 leading-relaxed"
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: 300,
-                fontSize: '1.05rem',
-                lineHeight: '1.75',
-                color: '#B7B7B7',
-                maxWidth: '480px',
-                opacity: 0,
-                transform: 'translateY(20px)',
-                transition: 'opacity 0.8s ease, transform 0.8s ease',
-              }}
-            >
-              Em um momento difícil, você não precisa passar por isso sozinho.
-              Nossa equipe cuida de cada detalhe para você.
-            </p>
-
-            {/* Buttons */}
-            <div
-              data-animate
-              className="flex flex-col sm:flex-row gap-4"
-              style={{
-                opacity: 0,
-                transform: 'translateY(20px)',
-                transition: 'opacity 0.8s ease, transform 0.8s ease',
-              }}
-            >
-              <a
-                href="tel:08000000000"
-                className="group flex items-center justify-center gap-3 px-8 py-4 transition-all duration-300"
-                style={{
-                  background: 'linear-gradient(135deg, #C89B53, #E0B56D)',
-                  color: '#05070B',
-                  fontFamily: 'Inter, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '0.85rem',
-                  letterSpacing: '0.06em',
-                  boxShadow: '0 0 30px rgba(200,155,83,0.2)',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 0 50px rgba(200,155,83,0.4)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(200,155,83,0.2)';
-                  (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                }}
-              >
-                <Phone size={16} strokeWidth={2} />
-                Preciso de atendimento imediato
-              </a>
-              <a
-                href="#planos"
-                className="flex items-center justify-center gap-3 px-8 py-4 border transition-all duration-300"
-                style={{
-                  borderColor: 'rgba(200,155,83,0.4)',
-                  color: '#C89B53',
-                  fontFamily: 'Inter, sans-serif',
-                  fontWeight: 300,
-                  fontSize: '0.85rem',
-                  letterSpacing: '0.06em',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(200,155,83,0.8)';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(200,155,83,0.06)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(200,155,83,0.4)';
-                  (e.currentTarget as HTMLElement).style.background = 'transparent';
-                }}
-              >
-                <Calendar size={16} strokeWidth={1.5} />
-                Quero me planejar
-              </a>
-            </div>
-          </div>
-
-          {/* Right — Image */}
-          <div
-            className="relative hidden lg:block"
-            style={{
-              opacity: 0,
-              animation: 'fadeIn 1.4s ease-out 0.5s forwards',
-            }}
-          >
-            {/* Decorative ring */}
-            <div
-              className="absolute -top-16 -right-16 w-72 h-72 rounded-full pointer-events-none"
-              style={{
-                border: '1px solid rgba(200,155,83,0.08)',
-              }}
-            />
-            <div
-              className="absolute -top-8 -right-8 w-56 h-56 rounded-full pointer-events-none"
-              style={{
-                border: '1px solid rgba(200,155,83,0.05)',
-              }}
-            />
-
-            {/* Image container */}
-            <div
-              className="relative overflow-hidden"
-              style={{
-                height: '580px',
-                borderRadius: '2px',
-              }}
-            >
-              <img
-                src="https://images.pexels.com/photos/8942991/pexels-photo-8942991.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                alt="Mãos unidas em apoio e acolhimento"
-                className="w-full h-full object-cover"
-                style={{ objectPosition: 'center 30%' }}
-              />
-              {/* Overlay gradients */}
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(to right, #05070B 0%, transparent 35%)',
-                }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(to top, #05070B 0%, transparent 40%)',
-                }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(5,7,11,0.4) 0%, transparent 30%)',
-                }}
-              />
-              {/* Thin gold border on right */}
-              <div
-                className="absolute top-0 right-0 bottom-0 w-px"
-                style={{ background: 'linear-gradient(to bottom, transparent, rgba(200,155,83,0.3), transparent)' }}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom trust bar */}
-        <div
-          className="mt-20 pt-10 grid grid-cols-1 sm:grid-cols-3 gap-8"
-          style={{ borderTop: '1px solid rgba(200,155,83,0.1)' }}
-        >
-          {[
-            { icon: '◈', label: 'Atendimento 24h', sub: 'Estamos sempre prontos para te ajudar' },
-            { icon: '◈', label: 'Equipe especializada', sub: 'Profissionais preparados para cuidar de tudo' },
-            { icon: '◈', label: 'Respeito e empatia', sub: 'Cuidamos de cada detalhe com humanidade' },
-          ].map((item) => (
-            <div key={item.label} className="flex items-start gap-4">
-              <span style={{ color: '#C89B53', fontSize: '1rem', lineHeight: '1.6', opacity: 0.7 }}>{item.icon}</span>
-              <div>
-                <p style={{ fontFamily: 'Inter, sans-serif', fontWeight: 400, fontSize: '0.88rem', color: '#F5F1EA', marginBottom: '2px' }}>
-                  {item.label}
-                </p>
-                <p style={{ fontFamily: 'Inter, sans-serif', fontWeight: 300, fontSize: '0.78rem', color: '#B7B7B7', lineHeight: 1.5 }}>
-                  {item.sub}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#05070B] via-transparent to-[#05070B]/40" />
       </div>
 
-      {/* Scroll indicator */}
-      <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40"
-        style={{ animation: 'floatAnim 3s ease-in-out infinite' }}
-      >
-        <div className="w-px h-10" style={{ background: 'linear-gradient(to bottom, transparent, #C89B53)' }} />
+      {/* Gold cinematic glow */}
+      <div className="absolute left-[-250px] top-1/2 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-[#C89B4E]/10 blur-[160px]" />
+
+      <div className="absolute right-[-250px] top-1/2 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-[#C89B4E]/10 blur-[160px]" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1400px] items-center px-6 lg:px-12">
+        <div className="mx-auto flex max-w-[900px] flex-col items-center pt-32 pb-24 text-center">
+
+          {/* Premium badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-10 inline-flex items-center gap-3 rounded-full border border-[#C89B4E]/20 bg-white/[0.03] px-6 py-3 backdrop-blur-xl"
+          >
+            <div className="h-2 w-2 rounded-full bg-[#C89B4E]" />
+
+            <span className="font-sans text-xs uppercase tracking-[0.25em] text-[#C89B4E]">
+              Atendimento 24h • Acolhimento Premium
+            </span>
+          </motion.div>
+
+          {/* Heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="font-serif text-white"
+            style={{
+              fontSize: 'clamp(4.5rem, 8vw, 7.5rem)',
+              lineHeight: '.92',
+              letterSpacing: '-0.05em',
+            }}
+          >
+            Honrando <span className="italic text-[#C89B4E]">
+              memórias
+            </span>
+            <br />
+            com respeito e dignidade.
+            <br />
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: .2 }}
+            className="mt-10 max-w-[720px] text-center font-sans text-lg font-light leading-relaxed text-[#CFCFCF] lg:text-xl"
+          >
+            Em momentos delicados, oferecemos suporte completo com elegância,
+            empatia e cuidado em cada detalhe para trazer tranquilidade à sua família.
+          </motion.p>
+
+          {/* Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: .4 }}
+            className="mt-14 flex flex-col items-center justify-center gap-5 sm:flex-row"
+          >
+            <a
+              href="tel:08000000000"
+              className="group flex items-center justify-center gap-3 rounded-full bg-[#C89B4E] px-10 py-5 font-sans text-sm font-medium uppercase tracking-[0.15em] text-black transition-all duration-300 hover:scale-[1.02]"
+              style={{
+                boxShadow: '0 0 40px rgba(200,155,78,.25)',
+              }}
+            >
+              <Phone size={18} />
+
+              Atendimento imediato
+            </a>
+
+            <a
+              href="#plans"
+              className="flex items-center justify-center gap-3 rounded-full border border-[#C89B4E]/20 bg-white/[0.03] px-10 py-5 font-sans text-sm font-medium uppercase tracking-[0.15em] text-white backdrop-blur-xl transition-all duration-300 hover:bg-white/[0.05]"
+            >
+              Conhecer planos
+
+              <ArrowRight size={18} />
+            </a>
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );
