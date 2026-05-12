@@ -12,7 +12,7 @@
   }
 
   body {
-    background-color: #05070B;
+    background-color: #080C14;
     color: #F5F1EA;
     font-family: 'Inter', sans-serif;
     font-weight: 300;
@@ -106,4 +106,8 @@
 
 .opacity-0-init {
   opacity: 0;
+}
+
+.neon-red-blink {
+  color: #C89B53;
 }

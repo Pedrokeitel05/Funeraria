@@ -4,7 +4,7 @@ export default function Contact() {
   return (
     <section
       id="contato"
-      className="relative py-28 lg:py-40 overflow-hidden"
+      className="relative py-16 lg:py-24 overflow-hidden"
       style={{ background: '#080C14' }}
     >
       {/* Ambient */}

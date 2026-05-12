@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Phone, Menu, X } from 'lucide-react';
+import pombo from '../../icones/pombo.png';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -14,6 +15,7 @@ export default function Header() {
   const navLinks = [
     { label: 'Como Funciona', href: '#como-funciona' },
     { label: 'Serviços', href: '#servicos' },
+    { label: 'Coroas de Flores', href: '#coroas' },
     { label: 'Planos', href: '#planos' },
     { label: 'Sobre Nós', href: '#sobre' },
   ];
@@ -30,14 +32,7 @@ export default function Header() {
         {/* Logo */}
         <a href="#" className="flex items-center gap-3 group">
           <div className="w-10 h-10 flex items-center justify-center">
-            <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19 4C19 4 12 11 12 18C12 22.4183 15.134 26 19 26C22.866 26 26 22.4183 26 18C26 11 19 4 19 4Z" stroke="#C89B53" strokeWidth="0.8" fill="none"/>
-              <path d="M19 26V34" stroke="#C89B53" strokeWidth="0.8" strokeLinecap="round"/>
-              <path d="M14 30H24" stroke="#C89B53" strokeWidth="0.8" strokeLinecap="round"/>
-              <circle cx="19" cy="18" r="3" stroke="#C89B53" strokeWidth="0.6" fill="none"/>
-              <path d="M13 15C10 16 8 18 8 20" stroke="#C89B53" strokeWidth="0.6" strokeLinecap="round" opacity="0.5"/>
-              <path d="M25 15C28 16 30 18 30 20" stroke="#C89B53" strokeWidth="0.6" strokeLinecap="round" opacity="0.5"/>
-            </svg>
+            <img src={pombo} alt="" style={{ width: '42px', height: '42px', objectFit: 'contain' }} />
           </div>
           <div className="flex flex-col">
             <span
@@ -50,7 +45,7 @@ export default function Header() {
               className="text-[#C89B53] tracking-[0.28em] leading-none"
               style={{ fontFamily: 'Inter, sans-serif', fontWeight: 300, fontSize: '0.52rem' }}
             >
-              CUIDADO QUE ACOLHE
+              ASSISTÊNCIA FUNERAL
             </span>
           </div>
         </a>

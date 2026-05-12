@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { Phone, Users, ClipboardList, Heart } from 'lucide-react';
 
 const steps = [
@@ -6,7 +6,7 @@ const steps = [
     num: '01',
     icon: Phone,
     title: 'Você entra em contato',
-    desc: 'Fale com um especialista e conte como podemos ajudar. Estamos aqui para ouvir você.',
+    desc: 'Fale com um consultor e conte como podemos ajudar. Estamos aqui para ouvir você.',
   },
   {
     num: '02',
@@ -56,8 +56,8 @@ export default function HowItWorks() {
     <section
       id="como-funciona"
       ref={sectionRef}
-      className="relative py-28 lg:py-40 overflow-hidden"
-      style={{ background: '#05070B' }}
+      className="relative py-7 lg:py-16 overflow-hidden"
+      style={{ background: '#080C14' }}
     >
       {/* Background glow */}
       <div
@@ -75,11 +75,11 @@ export default function HowItWorks() {
         style={{ border: '1px solid rgba(200,155,83,0.04)', bottom: '5%', left: '-3%' }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-8xl mx-auto px-6 lg:px-12">
         {/* Header */}
-        <div className="text-center mb-20 lg:mb-28">
+        <div className="text-center mb-12">
           <p
-            className="mb-5"
+            className="mb-2"
             style={{
               fontFamily: 'Inter, sans-serif',
               fontWeight: 300,
@@ -91,7 +91,7 @@ export default function HowItWorks() {
             NOSSO PROCESSO
           </p>
           <h2
-            className="mb-6"
+            className="mb-2"
             style={{
               fontFamily: 'Cormorant Garamond, serif',
               fontWeight: 300,
@@ -106,7 +106,7 @@ export default function HowItWorks() {
           </h2>
 
           {/* Ornament */}
-          <div className="flex items-center justify-center gap-4 mb-8">
+          <div className="flex items-center justify-center gap-4 mb-2">
             <div className="h-px w-16" style={{ background: 'rgba(200,155,83,0.3)' }} />
             <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
               <path d="M0 6H6M22 6H28M14 0V12M10 3L14 6L18 3M10 9L14 6L18 9" stroke="#C89B53" strokeWidth="0.8" strokeOpacity="0.6"/>
@@ -132,17 +132,12 @@ export default function HowItWorks() {
 
         {/* Steps */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 relative">
-          {/* Connector lines (desktop) */}
-          <div
-            className="hidden lg:block absolute top-[3.2rem] left-[calc(25%+2rem)] right-[calc(25%+2rem)] h-px pointer-events-none"
-            style={{ background: 'linear-gradient(90deg, rgba(200,155,83,0.2), rgba(200,155,83,0.2))' }}
-          />
-          {/* Step dots overlay */}
-          <div className="hidden lg:flex absolute top-[2.6rem] left-[25%] right-[25%] justify-between pointer-events-none px-[12.5%]">
-            {[0,1].map(i => (
-              <div key={i} className="w-2 h-2 rounded-full" style={{ background: 'rgba(200,155,83,0.25)' }} />
-            ))}
-          </div>
+          {/* Segment 1→2 */}
+          <div className="hidden lg:block absolute h-px pointer-events-none" style={{ top: 'calc(2rem + 34px)', left: 'calc(12.5% + 38px)', width: 'calc(25% - 76px)', background: 'rgba(200,155,83,0.3)' }} />
+          {/* Segment 2→3 */}
+          <div className="hidden lg:block absolute h-px pointer-events-none" style={{ top: 'calc(2rem + 34px)', left: 'calc(37.5% + 38px)', width: 'calc(25% - 76px)', background: 'rgba(200,155,83,0.3)' }} />
+          {/* Segment 3→4 */}
+          <div className="hidden lg:block absolute h-px pointer-events-none" style={{ top: 'calc(2rem + 34px)', left: 'calc(62.5% + 38px)', width: 'calc(25% - 76px)', background: 'rgba(200,155,83,0.3)' }} />
 
           {steps.map((step, i) => {
             const Icon = step.icon;
@@ -150,7 +145,7 @@ export default function HowItWorks() {
               <div
                 key={step.num}
                 data-step
-                className="flex flex-col items-center text-center px-6 py-8 group"
+                className="flex flex-col items-center text-center px-6 py-2 group"
                 style={{
                   opacity: 0,
                   transform: 'translateY(24px)',
@@ -176,9 +171,9 @@ export default function HowItWorks() {
                 >
                   <span
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: 'Poppins, serif',
                       fontWeight: 300,
-                      fontSize: '1.4rem',
+                      fontSize: '1.5rem',
                       color: '#C89B53',
                       opacity: 0.9,
                     }}
@@ -226,11 +221,14 @@ export default function HowItWorks() {
 
         {/* CTA Card */}
         <div
-          className="mt-20 flex flex-col md:flex-row items-center justify-between gap-8 px-8 md:px-12 py-10"
+          className="mt-12 max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 px-8 md:px-12 py-10"
           style={{
-            background: 'rgba(11,16,22,0.8)',
-            border: '1px solid rgba(200,155,83,0.18)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(255,255,255,0.06)',
+            border: '1px solid rgba(200,155,83,0.22)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderRadius: '14px',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.3)',
           }}
         >
           <div className="flex items-center gap-6">
@@ -275,26 +273,32 @@ export default function HowItWorks() {
               href="tel:08000000000"
               className="flex items-center gap-3 px-8 py-4 transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, #C89B53, #E0B56D)',
-                color: '#05070B',
+                background: 'rgba(200,155,83,0.22)',
+                border: '1px solid rgba(200,155,83,0.55)',
+                backdropFilter: 'blur(14px)',
+                WebkitBackdropFilter: 'blur(14px)',
+                borderRadius: '10px',
+                color: '#E0B56D',
                 fontFamily: 'Inter, sans-serif',
-                fontWeight: 500,
+                fontWeight: 600,
                 fontSize: '0.85rem',
                 letterSpacing: '0.04em',
                 whiteSpace: 'nowrap',
-                boxShadow: '0 0 30px rgba(200,155,83,0.2)',
+                boxShadow: '0 4px 24px rgba(200,155,83,0.18), inset 0 1px 0 rgba(200,155,83,0.2)',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 50px rgba(200,155,83,0.4)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(200,155,83,0.35)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 40px rgba(200,155,83,0.4), inset 0 1px 0 rgba(200,155,83,0.3)';
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(200,155,83,0.2)';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(200,155,83,0.22)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(200,155,83,0.18), inset 0 1px 0 rgba(200,155,83,0.2)';
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
               }}
             >
               <Phone size={15} strokeWidth={1.5} />
-              Falar com um especialista 24h
+              Falar com um consultor 24h
             </a>
             <p
               style={{

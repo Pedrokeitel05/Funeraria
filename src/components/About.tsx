@@ -35,8 +35,8 @@ export default function About() {
     <section
       id="sobre"
       ref={sectionRef}
-      className="relative py-28 lg:py-40 overflow-hidden"
-      style={{ background: 'linear-gradient(180deg, #05070B 0%, #060910 100%)' }}
+      className="relative py-16 lg:py-24 overflow-hidden"
+      style={{ background: '#080C14' }}
     >
       {/* Ambient */}
       <div
@@ -189,7 +189,7 @@ export default function About() {
                 data-reveal
                 className="flex flex-col justify-center p-10 transition-all duration-500"
                 style={{
-                  background: '#05070B',
+                  background: '#080C14',
                   opacity: 0,
                   transform: 'translateY(20px)',
                   transition: `opacity 0.7s ease ${i * 0.08}s, transform 0.7s ease ${i * 0.08}s, background 0.4s ease`,
@@ -198,7 +198,7 @@ export default function About() {
                   (e.currentTarget as HTMLElement).style.background = 'rgba(200,155,83,0.04)';
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = '#05070B';
+                  (e.currentTarget as HTMLElement).style.background = '#080C14';
                 }}
               >
                 <div
